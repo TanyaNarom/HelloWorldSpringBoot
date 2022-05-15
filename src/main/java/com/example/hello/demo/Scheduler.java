@@ -7,10 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Scheduler {
 
-    @Async
-    @Scheduled(fixedDelayString = "PT30M")
+    @Async("workExecutor")
+    @Scheduled(fixedDelayString = "PT10M")
     public void reportCurrentData() throws InterruptedException {
         System.out.println("Hello world");
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
+
